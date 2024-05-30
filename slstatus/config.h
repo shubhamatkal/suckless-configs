@@ -65,13 +65,13 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{battery_perc, "⚡%s%%","BAT1"},
+	{battery_perc, "%s%%","BAT1"},
 	{battery_state,"%s | ", "BAT1"},
-	{wifi_perc, "🛜%s%% | ","wlp3s0"},
+	{wifi_perc, "%s%% | ","wlp3s0"},
 	{netspeed_rx, "%sB/s | ", "wlp3s0"},
-	{temp, "🌡️%s | ", "../../../sys_scripts/get_temp.sh"},
+	{temp, "%s | ", "home/shubham/sys_scripts/get_temp.sh"},
 	{ram_perc , "RAM:%s | ", NULL},
 	{cpu_perc, "CPU:%s | ", NULL},
-	{vol_perc, "🔊%s%% | ", "~/sys_scripts/get_volume.sh"},
+	{vol_perc, "%s%% | ", "home/shubham/sys_scripts/get_volume.sh"},
 	{ datetime, "%s | shubham ",          "%a %b %d | %H:%M" },
 };

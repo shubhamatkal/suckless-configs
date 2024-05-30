@@ -1,12 +1,19 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
+#include <unistd.h>
+
+/* defining some functions */
+static const char *chrome_cmd[] = { "google-chrome-stable", NULL };
+static const char *alacritty_cmd[]={ "alacritty", NULL};
+static const char *nautilus_cmd[]={"nautilus", NULL};
+
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=12",    "Font Awesome:size=12",
-    "Noto Color Emoji:size=12", };
+static const char *fonts[]          = { "monospace:size=12","Hack Nerd Font:size=20",    "Font Awesome:size=12","NotoColorEmoji:pixelsize=20:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -20,7 +27,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "", "", "", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -45,6 +52,15 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
+/* audio constants */
+static const char *upvol[] = {"/usr/bin/pipewire", "pamixer" , "-i", "5",NULL};
+static const char *downvol[] = {"/usr/bin/pipewire", "pamixer", "-d" , "5", NULL};
+static const char *mute[] = {"/usr/bin/pipewire", "pamixer" , "-m" , NULL};
+
+/* shutdown */
+static const char *shutcmd[] = {"shutdown", "now", NULL};
+
+
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -63,6 +79,9 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ MODKEY|ShiftMask,                       XK_2,      spawn,          {.v = chrome_cmd } }, 
+	{MODKEY|ShiftMask, XK_3, spawn, {.v = alacritty_cmd}},
+	{MODKEY|ShiftMask, XK_4, spawn, {.v = nautilus_cmd}},
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -96,6 +115,9 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{0, XF86XK_AudioLowerVolume , spawn, {.v = downvol}},
+	{0,XF86XK_AudioRaiseVolume, spawn , {.v = upvol}},
+	{0,XF86XK_AudioMute, spawn  , {.v = mute}},
 };
 
 /* button definitions */
