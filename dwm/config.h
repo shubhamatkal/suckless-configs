@@ -6,6 +6,7 @@
 static const char *chrome_cmd[] = { "google-chrome-stable", NULL };
 static const char *alacritty_cmd[]={ "alacritty", NULL};
 static const char *nautilus_cmd[]={"nautilus", NULL};
+static const char *flameshotcmd[]  = { "flameshot", "gui", NULL };
 
 
 /* appearance */
@@ -13,7 +14,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=12","Hack Nerd Font:size=20",    "Font Awesome:size=12","NotoColorEmoji:pixelsize=20:antialias=true:autohint=true" };
+static const char *fonts[]          = { "InconsolataGo Nerd Font:style=Regular:size=12" };
 static const char dmenufont[]       = "monospace:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -82,6 +83,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,                       XK_2,      spawn,          {.v = chrome_cmd } }, 
 	{MODKEY|ShiftMask, XK_3, spawn, {.v = alacritty_cmd}},
 	{MODKEY|ShiftMask, XK_4, spawn, {.v = nautilus_cmd}},
+	{ MODKEY,                        XK_s,      spawn,          {.v = flameshotcmd } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
