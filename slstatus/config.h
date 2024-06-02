@@ -65,13 +65,14 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{battery_perc, "%s%%","BAT1"},
+	{battery_perc, "| %s%%","BAT1"},
 	{battery_state,"%s | ", "BAT1"},
 	{wifi_perc, "%s%% | ","wlp3s0"},
 	{netspeed_rx, "%sB/s | ", "wlp3s0"},
-	{temp, "%s | ", "home/shubham/sys_scripts/get_temp.sh"},
+	{run_command, ":%s | ", "sensors | awk '/^Tctl/ {print $2}'"},
 	{ram_perc , "RAM:%s | ", NULL},
 	{cpu_perc, "CPU:%s | ", NULL},
-	{vol_perc, "%s%% | ", "home/shubham/sys_scripts/get_volume.sh"},
+	{run_command, ":%s | ", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'"},
+	{run_command, ":%s | ", "echo 'scale=0; 100 * $(cat /sys/class/backlight/amdgpu_bl1/brightness) / $(cat /sys/class/backlight/amdgpu_bl1/max_brightness)' | bc"},
 	{ datetime, "%s | shubham ",          "%a %b %d | %H:%M" },
 };

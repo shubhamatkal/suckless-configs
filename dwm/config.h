@@ -7,24 +7,55 @@ static const char *chrome_cmd[] = { "google-chrome-stable", NULL };
 static const char *alacritty_cmd[]={ "alacritty", NULL};
 static const char *nautilus_cmd[]={"nautilus", NULL};
 static const char *flameshotcmd[]  = { "flameshot", "gui", NULL };
-
+static const char *shutdowncmd[] = { "shutdown", "now", NULL };
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "InconsolataGo Nerd Font:style=Regular:size=12" };
-static const char dmenufont[]       = "monospace:size=12";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+
+static unsigned int snap = 32;    /* snap pixel */
+static int swallowfloating =
+    0; /* 1 means swallow floating windows by default */
+static unsigned int systraypinning =
+    0; /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor
+          X */
+static unsigned int systrayspacing = 4; /* systray spacing */
+static int systraypinningfailfirst =
+    1; /* 1: if pinning fails, display systray on the first monitor, False:
+          display systray on the last monitor*/
+static int showsystray = 1; /* 0 means no systray */
+static int showbar = 1;     /* 0 means no bar */
+static int topbar = 1;      /* 0 means bottom bar */
+static int startontag = 1;  /* 0 means no tag active on start */
+static int user_bh = 28;    /* 0 means that dwm will calculate bar height, >= 1
+                               means dwm will user_bh as bar height */
+static float activeopacity =
+    1.0f; /* Window opacity when it's focused (0 <= opacity <= 1) */
+static float inactiveopacity =
+    0.875f; /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static Bool bUseOpacity =
+    True; /* Starts with opacity on any unfocused windows */
+
+static const char *fonts[] = {
+    "SF Mono:size=12",
+    "fontawesome:size=12",
+    "Noto Color Emoji:size=12",
+};
+static char dmenufont[] = "Bitstream Vera Sans:size=12";
+// background color
+static char normbgcolor[] = "#000000";
+// inactive window border color
+static char normbordercolor[] = "#dddddd";
+// font color
+static char normfgcolor[] = "#bbbbbb";
+// current tag and current window font color (font on cyan)
+static char selfgcolor[] = "#000000";
+// top bar second color (blue) and active window border color (cyan)
+static char selbordercolor[] = "#1a9942";
+static char selbgcolor[] = "#1a9942";
+static const char *colors[][3] = {
+    /*               fg           bg           border   */
+    [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
+    [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor},
 };
 
 /* tagging */
@@ -75,8 +106,11 @@ static const char *shutcmd[] = {"shutdown", "now", NULL};
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
+                                 dmenufont,   "-nb", normbgcolor,    "-nf",
+                                 normfgcolor, "-sb", selbordercolor, "-sf",
+                                 selfgcolor,  NULL};
+static const char *termcmd[]  = { "alacritty", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -116,7 +150,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,         {.v = shutdowncmd } },
 	{0, XF86XK_AudioLowerVolume , spawn, {.v = downvol}},
 	{0,XF86XK_AudioRaiseVolume, spawn , {.v = upvol}},
 	{0,XF86XK_AudioMute, spawn  , {.v = mute}},
