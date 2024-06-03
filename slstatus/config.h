@@ -73,6 +73,6 @@ static const struct arg args[] = {
 	{ram_perc , "RAM:%s | ", NULL},
 	{cpu_perc, "CPU:%s | ", NULL},
 	{run_command, ":%s | ", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'"},
-	{run_command, ":%s | ", "echo 'scale=0; 100 * $(cat /sys/class/backlight/amdgpu_bl1/brightness) / $(cat /sys/class/backlight/amdgpu_bl1/max_brightness)' | bc"},
-	{ datetime, "%s | shubham ",          "%a %b %d | %H:%M" },
+	{run_command, ":%s | ", "echo $(cat /sys/class/backlight/amdgpu_bl1/brightness) \\* 100 / $(cat /sys/class/backlight/amdgpu_bl1/max_brightness) | bc"},
+	{ datetime, "%s | shubham |",          "%a %b %d | %H:%M" },
 };

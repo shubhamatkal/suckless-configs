@@ -8,6 +8,10 @@ static const char *alacritty_cmd[]={ "alacritty", NULL};
 static const char *nautilus_cmd[]={"nautilus", NULL};
 static const char *flameshotcmd[]  = { "flameshot", "gui", NULL };
 static const char *shutdowncmd[] = { "shutdown", "now", NULL };
+static const char *upbright[] = { "brightnessctl", "set", "+10%", NULL };
+static const char *downbright[] = { "brightnessctl", "set", "10%-", NULL };
+static const char *playpause[] = { "playerctl", "play-pause", NULL}; 
+static const char *calcul[] = {"gnome-calculator", NULL};
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -69,6 +73,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "gnome-calculator",    NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -79,15 +84,15 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "| tile",      tile },    /* first entry is default */
+	{ "| float",      NULL },    /* no layout function means floating behavior */
+	{ "| [M]",      monocle },
 };
 
 /* audio constants */
-static const char *upvol[] = {"/usr/bin/pipewire", "pamixer" , "-i", "5",NULL};
-static const char *downvol[] = {"/usr/bin/pipewire", "pamixer", "-d" , "5", NULL};
-static const char *mute[] = {"/usr/bin/pipewire", "pamixer" , "-m" , NULL};
+static const char *upvol[] = {"pamixer" , "-i", "5",NULL};
+static const char *downvol[] = {"pamixer", "-d" , "5", NULL};
+static const char *mute[] = {"pamixer" , "-t" , NULL};
 
 /* shutdown */
 static const char *shutcmd[] = {"shutdown", "now", NULL};
@@ -117,7 +122,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,                       XK_2,      spawn,          {.v = chrome_cmd } }, 
 	{MODKEY|ShiftMask, XK_3, spawn, {.v = alacritty_cmd}},
 	{MODKEY|ShiftMask, XK_4, spawn, {.v = nautilus_cmd}},
-	{ MODKEY,                        XK_s,      spawn,          {.v = flameshotcmd } },
+	{ 0,                        XK_Print,      spawn,          {.v = flameshotcmd } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -129,7 +134,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_Escape,      killclient,     {0} },
+	{ MODKEY|ShiftMask, 		XK_Escape, spawn, {.v = shutcmd }},
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -150,10 +156,13 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      spawn,         {.v = shutdowncmd } },
 	{0, XF86XK_AudioLowerVolume , spawn, {.v = downvol}},
 	{0,XF86XK_AudioRaiseVolume, spawn , {.v = upvol}},
 	{0,XF86XK_AudioMute, spawn  , {.v = mute}},
+	{ 0,                   XF86XK_MonBrightnessUp,   spawn,          {.v = upbright } },
+    	{ 0,                   XF86XK_MonBrightnessDown, spawn,          {.v = downbright } },
+	{ 0, XF86XK_AudioPlay, spawn, {.v = playpause} },
+	{ 0, XF86XK_Calculator, spawn,{.v = calcul}},
 };
 
 /* button definitions */
