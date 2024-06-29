@@ -67,12 +67,13 @@ static const struct arg args[] = {
 	/* function format          argument */
 	{battery_perc, "| %s%%","BAT1"},
 	{battery_state,"%s | ", "BAT1"},
-	{wifi_perc, "%s%% | ","wlp3s0"},
+	{run_command, "%s", "nmcli -t -f ACTIVE,TYPE connection show --active | grep -q '^yes:802-11-wireless$' && echo ''" },
 	{netspeed_rx, "%sB/s | ", "wlp3s0"},
 	{run_command, ":%s | ", "sensors | awk '/^Tctl/ {print $2}'"},
 	{ram_perc , "RAM:%s | ", NULL},
 	{cpu_perc, "CPU:%s | ", NULL},
 	{run_command, ":%s | ", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'"},
 	{run_command, ":%s | ", "echo $(cat /sys/class/backlight/amdgpu_bl1/brightness) \\* 100 / $(cat /sys/class/backlight/amdgpu_bl1/max_brightness) | bc"},
-	{ datetime, "%s | shubham |",          "%a %b %d | %H:%M" },
+    	{ run_command, "%s | ", "date '+%I:%M %p'" },
+	{ datetime, "%s | shubham |",          "%a %b %d" },
 };
