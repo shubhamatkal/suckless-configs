@@ -3,6 +3,11 @@
 /* interval between updates (in ms) */
 const unsigned int interval = 10000;
 
+
+/* for audio ouput display */
+/* static const char audio_op = { "sh", "/home/shubham/scripts/check_audio_op.sh", NULL };
+*/
+
 /* text to show if no value can be retrieved */
 static const char unknown_str[] = "n/a";
 
@@ -68,11 +73,13 @@ static const struct arg args[] = {
 	{battery_perc, "| %s%%","BAT1"},
 	{battery_state,"%s | ", "BAT1"},
 	{run_command, "%s", "nmcli -t -f ACTIVE,TYPE connection show --active | grep -q '^yes:802-11-wireless$' && echo ''" },
-	{netspeed_rx, "%sB/s | ", "wlp3s0"},
+	{run_command,"%s", "sh /home/shubham/scripts/check_wifi_name.sh"},
+	{netspeed_rx, " %sB/s | ", "wlp3s0"},
 	{run_command, ":%s | ", "sensors | awk '/^Tctl/ {print $2}'"},
 	{ram_perc , "RAM:%s | ", NULL},
 	{cpu_perc, "CPU:%s | ", NULL},
-	{run_command, ":%s | ", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'"},
+	{run_command,"%s","sh /home/shubham/scripts/check_audio_op.sh"},
+	{run_command, " :%s | ", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'"},
 	{run_command, ":%s | ", "echo $(cat /sys/class/backlight/amdgpu_bl1/brightness) \\* 100 / $(cat /sys/class/backlight/amdgpu_bl1/max_brightness) | bc"},
     	{ run_command, "%s | ", "date '+%I:%M %p'" },
 	{ datetime, "%s | shubham |",          "%a %b %d" },

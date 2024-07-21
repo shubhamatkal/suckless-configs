@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "SF Mono:size=14";
-static int borderpx = 1;
+static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -91,18 +91,10 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 4;
+unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	    "#000000", /* black   */
-    "#ff0000", /* red     */
-    "#00ff00", /* green   */
-    "#ffff00", /* yellow  */
-    "#0000ff", /* blue    */
-    "#ff00ff", /* magenta */
-    "#00ffff", /* cyan    */
-    "#ffffff", /* white   */
 	/* 8 normal colors */
 	"black",
 	"red3",
@@ -149,14 +141,14 @@ static unsigned int defaultrcs = 257;
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-static unsigned int cursorshape = 6;
+static unsigned int cursorshape = 2;
 
 /*
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 81;
-static unsigned int rows = 25;
+static unsigned int cols = 80;
+static unsigned int rows = 24;
 
 /*
  * Default colour and shape of the mouse cursor

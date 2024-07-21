@@ -124,6 +124,8 @@ static const char *colorname[] = {
 	"black", /* default background colour */
 };
 
+/* background opacity */
+static const int alpha = 0xdd;
 
 /*
  * Default colors (colorname index)
