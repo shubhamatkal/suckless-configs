@@ -1,2 +1,2 @@
 screenshot:
-![suckless_ss](https://github.com/shubhamatkal/suckless-configs/assets/99415769/df197a28-9776-4240-9d18-2005eb010562)
+![newsucklessview](https://github.com/user-attachments/assets/f6f71354-3070-44b3-a7b0-c16249888a93)
