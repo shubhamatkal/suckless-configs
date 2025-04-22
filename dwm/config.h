@@ -14,7 +14,8 @@ static const char *playpause[] = { "playerctl", "play-pause", NULL};
 static const char *calcul[] = {"gnome-calculator", NULL};
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
+
 
 static unsigned int snap = 32;    /* snap pixel */
 static int swallowfloating =
@@ -72,7 +73,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	 { "konsole",  NULL,       NULL,       1 << 8,       0,           -1 },
 	{ "gnome-calculator",    NULL,       NULL,       0,            1,           -1 },
 	{ "nautilus", NULL, NULL, 0,1,-1},
 };
@@ -85,8 +86,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "| tile",      tile },    /* first entry is default */
-	{ "| float",      NULL },    /* no layout function means floating behavior */
+	{ "| [T]",      tile },    /* first entry TILE is default */
+	{ "| [F]",      NULL },    /* no layout function means floating behavior */
 	{ "| [M]",      monocle },
 };
 
@@ -116,7 +117,7 @@ static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
                                  dmenufont,   "-nb", normbgcolor,    "-nf",
                                  normfgcolor, "-sb", selbordercolor, "-sf",
                                  selfgcolor,  NULL};
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "konsole", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
